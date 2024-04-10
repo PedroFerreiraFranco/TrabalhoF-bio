@@ -1,44 +1,3 @@
-function encode() {
-    var login = document.getElementById('inputLogin').value;
-    var senha = document.getElementById('inputSenha').value;
-    var encodedLogin = encodeText(login);
-    var encodedSenha = encodeText(senha);
-    document.getElementById('output').innerText = "Login codificado: " + encodedLogin + "\nSenha codificada: " + encodedSenha;
-}
-
-function decode() {
-    var encodedLogin = document.getElementById('inputLogin').value;
-    var encodedSenha = document.getElementById('inputSenha').value;
-    var decodedLogin = decodeText(encodedLogin);
-    var decodedSenha = decodeText(encodedSenha);
-    document.getElementById('output').innerText = "Login decodificado: " + decodedLogin + "\nSenha decodificada: " + decodedSenha;
-}
-
-// Função para codificar texto
-function encodeText(text) {
-    var encodedText = '';
-    for (var i = 0; i < text.length; i++) {
-        var charCode = text.charCodeAt(i);
-        // Adiciona 100 ao código ASCII do caractere
-        encodedText += (charCode + 100).toString() + ' ';
-    }
-    return encodedText.trim();
-}
-
-// Função para decodificar texto
-function decodeText(text) {
-    var decodedText = '';
-    var encodedChars = text.split(' ');
-    for (var i = 0; i < encodedChars.length; i++) {
-        var charCode = parseInt(encodedChars[i]);
-        // Subtrai 100 do valor codificado para obter o código ASCII original
-        decodedText += String.fromCharCode(charCode - 100);
-    }
-    return decodedText;
-}
-
-
-// Tabela de caracteres mapeados
 // Tabela de caracteres mapeados
 var tabelaCaracteres = {
     "A": 1, "Á": 2, "À": 3, "Ã": 4, "Â": 5,
@@ -104,6 +63,24 @@ var tabelaCaracteres = {
     "\\": 139, "º": 140, "ª": 141, "°": 142, " ":143
 };
 
+function encode() {
+    var login = document.getElementById('inputLogin').value;
+    var senha = document.getElementById('inputSenha').value;
+    var encodedLogin = encodeText(login);
+    var encodedSenha = encodeText(senha);
+    document.getElementById('output').innerText = "Login codificado: " + encodedLogin + "\nSenha codificada: " + encodedSenha;
+    clearFields(); // Limpa os campos após codificar
+}
+
+function decode() {
+    var encodedLogin = document.getElementById('inputLogin').value;
+    var encodedSenha = document.getElementById('inputSenha').value;
+    var decodedLogin = decodeText(encodedLogin);
+    var decodedSenha = decodeText(encodedSenha);
+    document.getElementById('output').innerText = "Login decodificado: " + decodedLogin + "\nSenha decodificada: " + decodedSenha;
+    clearFields(); // Limpa os campos após decodificar
+}
+
 // Função para codificar texto
 function encodeText(text) {
     var encodedText = '';
@@ -133,4 +110,10 @@ function decodeText(text) {
         }
     }
     return decodedText;
+}
+
+// Função para limpar os campos de texto
+function clearFields() {
+    document.getElementById('inputLogin').value = '';
+    document.getElementById('inputSenha').value = '';
 }
